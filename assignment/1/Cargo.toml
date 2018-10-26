@@ -1,0 +1,8 @@
+[package]
+name = "plot-attraction"
+version = "0.1.0"
+authors = ["Gwen Lofman <Gwen@Lofman.io>"]
+
+[dependencies]
+gnuplot = "0.0.26"
+num-complex = "0.2"

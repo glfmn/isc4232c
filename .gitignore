@@ -1,3 +1,4 @@
 scratch.clj
 .#*.*
 .ipynb_checkpoints
+**/target
