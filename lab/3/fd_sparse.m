@@ -1,5 +1,5 @@
-function [U, xs] = fd_naive(f, a, b, ua, ub, n)
-% FD_NAIVE Solve the BVP with dirichelet conditions using finite difference
+function [U, xs] = fd_sparse(f, a, b, ua, ub, n)
+% FD_SPARSE Solve the BVP with dirichelet conditions with finite difference
 
 % Create mesh of x values
 xs = linspace(a,b,n+2)';
@@ -13,11 +13,8 @@ rhs(end) = rhs(end) - ub;
 
 % From the diagonals construct the matrix which represents the finite
 % difference
-da = ones(n-1,1);
-db = -2*ones(n,1);
-dc = ones(n-1,1);
-
-L = diag(da,-1) + diag(db,0) + diag(dc,1);
+e = ones(n,1);
+L = spdiags([e -2*e e], -1:1, n,n);
 
 % Find the solution by solving the system using \
 U = L\rhs;
