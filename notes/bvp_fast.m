@@ -1,22 +1,25 @@
 %%
-% Solve the 1D Poisson equation -u'' = f in [0,1] with Dirichlet boundary
-% conditions u(0) = A, u(1) - B
+% Solve the 1D equation -u'' = f in [0,2pi] with Dirichlet boundary
+% conditions u(0) = A, u(2pi) - B
 
-f = @(x) pi^2*sin(pi*x);
-A = 0;
-B = 0;
+f = @(x) -6*x + sin(x);
+A = 5;
+B = 8*pi^3 + 5;
+
+x0 = 0;
+xn = 2*pi;
 
 %%
 % The exact solution of the BVP
-uexact = @(x) sin(pi*x);
+uexact = @(x) x.^3 - sin(x) + 5;
 
 %%
 % Set up the grid of the numerical solution
 
-N = 10000;
+N = 64;
 
 % Include the start and end points, and then remove them
-x = linspace(0,1,N+2)';
+x = linspace(x0,xn,N+2)';
 x = x(2:end-1);
 dx = 1/(N+1); % mesh spacing
 
@@ -32,30 +35,21 @@ c = ones(N,1);
 
 L = diag(a(1:end-1),1) + diag(b,0) + diag(c(1:end-1),-1);
 
-e = ones(N,1);
-Lsparse = spdiags([e -2*e e], -1:1, N,N);
+%e = ones(N,1);
+%Lsparse = spdiags([e -2*e e], -1:1, N,N);
+%U = Lsparse\rhs;
 
-tic
 U = L\rhs;
-fprintf('Speed with backslash %.5e\n', toc);
-
-tic
-U = Lsparse\rhs;
-fprintf('Speed with sparse backslash %.5e\n', toc);
 
 
 figure(1); clf; hold on
-plot([0;x;1], [A;U;B]);
-plot([0;x;1], [A;uexact(x);B], 'r--');
+plot([x0;x;xn], [A;U;B]);
+plot([x0;x;xn], [A;uexact(x);B], 'r--');
 
 %%
 %
-
-tic
 U = thomas(a,b,c,rhs);
-fprintf('Speed with thomas algorithm %.5e\n', toc);
 
 figure(2); clf; hold on
-plot([0;x;1], [A;U;B]);
-plot([0;x;1], [A;uexact(x);B], 'r--');
-clear(U,A,a,b,c);
+plot([x0;x;xn], [A;U;B]);
+plot([x0;x;xn], [A;uexact(x);B], 'r--');
