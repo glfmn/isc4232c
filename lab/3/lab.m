@@ -98,6 +98,6 @@ fprintf("N & L_{\\infty} & ratio & L_2 & ratio \\\\\\hline\n");
 for e = 2:numel(N);
     einf = E_inf(e-1)/E_inf(e);
     e2 = E_2(e-1)/E_2(e);
-    fprintf("%4i & %.3f & %.3f & %.3f & %.3f \\\\\n", N(e), E_inf(e), einf, E_2(e), e2);
+    fprintf("%4i & %.3e & %.3f & %.3e & %.3f \\\\\n", N(e), E_inf(e), einf, E_2(e), e2);
 end
 fprintf("\\end{array}\n");
