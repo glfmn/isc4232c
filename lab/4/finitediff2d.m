@@ -8,7 +8,7 @@ x = linspace(h,1-h,N);
 y = x;
 [X, Y] = meshgrid(x,y);
 
-rhs = -h^2*f(X,Y);
+rhs = h^2*f(X,Y);
 rhs(1:N,1) = rhs(1:N,1) + bl(y');
 rhs(1:N,N) = rhs(1:N,N) + br(y');
 rhs(1,1:N) = rhs(1,1:N) + bt(x);
