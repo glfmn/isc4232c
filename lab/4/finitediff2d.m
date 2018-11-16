@@ -1,6 +1,8 @@
 function [U,x,y] = finitediff2d(f, N, br, bl, bt, bb)
-%FINITEDIFF2D Summary of this function goes here
-%   Detailed explanation goes here
+%FINITEDIFF2D solve the PDE defined by f in a uniform 2D box
+%   Only solves problems in the box from [0 1]x[0 1], taking
+%   a functions which define the boundary conditions on each
+%   edge.
 
 % Create our set of discretization points
 h = 1/(N+1);
