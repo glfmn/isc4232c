@@ -1,8 +1,6 @@
 %% Lab 4: 2D Finite Difference
 %%%
-% *Gwen Zapata*
-%%%
-% *ISC4220C*
+% *Gwen Lofman*, *ISC4220C*
 %%
 %%
 clear
@@ -10,8 +8,8 @@ clear
 %% Poisson Equation
 % As a prototypical equation for studying the properties of 2D finite
 % difference equations, we can use the Poisson Equation:
-% $-\delta u(x,y) = f(x,y)$ where $\delta u$ is shorthand for
-% $ u_{xx} + u_{yy} $.  Putting all of this together, we have:
+% $-\Delta u(x,y) = f(x,y)$ where $\Delta u$ is shorthand for
+% $u_{xx} + u_{yy}$.  Putting all of this together, we have:
 %
 % $$
 % -u_{xx}-u_{yy} = f
@@ -22,7 +20,7 @@ clear
 % $x \in (0,1), y \in (0,1)$:
 %
 % $$
-% -\delta u = -2\pi^2 \sin(\pi x) \cos(\pi y)
+% -\Delta u = -2\pi^2 \sin(\pi x) \cos(\pi y)
 % $$
 
 f = @(x, y) 2*pi^2 .* sin(pi*x) .* cos(pi*y);
@@ -54,8 +52,8 @@ N = 2.^(2:7);
 
 %%
 % Performing a convergence study on this approach with
-% $ N {4,8,16,32,64,128} $ and comparing the error with the $l_2$ norm
-% against the exact solution $ u(x,y) = \sin(\pi x)\cos(\pi y) $.
+% $N = \{4,8,16,32,64,128\}$ and comparing the error with the $l_2$ norm
+% against the exact solution $u(x,y) = \sin(\pi x)\cos(\pi y)$.
 
 u = @(x,y) sin(pi.*x) .* cos(pi.*y);
 
@@ -73,7 +71,7 @@ for e = E_2
 end
 
 % Plot the error in loglog scale
-figure(1);
+figure;
 loglog(N, E_2);
 title("Convergence Study");
 legend("L_2 norm");
@@ -84,6 +82,6 @@ fprintf("\\begin{array}{r|rr}\n");
 fprintf("   N & L_2   & ratio \\\\\\hline\n");
 for e = 2:numel(N)
     e2 = E_2(e-1)/E_2(e);
-    fprintf("%4i & %.3f & %.3f \\\\\n", N(e), E_2(e), e2);
+    fprintf("%4i & %.7f & %.7f \\\\\n", N(e), E_2(e), e2);
 end
 fprintf("\\end{array}\n");
